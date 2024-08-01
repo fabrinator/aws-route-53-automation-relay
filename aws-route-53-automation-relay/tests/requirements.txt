@@ -4,3 +4,4 @@ requests==2.32.3
 moto==5.0.11
 coverage==7.6.0
 cfnresponse==1.1.4
+moto[server]
