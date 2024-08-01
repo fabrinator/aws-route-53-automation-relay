@@ -1,0 +1,3 @@
+{
+  "SNS_ARN": "arn:aws:sns:us-east-1:730335655220:Route53Automation-dev-sns-topic"
+}

@@ -1,0 +1,27 @@
+{
+  "RequestType": "Update",
+  "ServiceToken": "arn:aws:lambda:us-east-1:912008965710:function:aws-route-53-automation-relay-dev",
+  "ServiceTimeout": "15",
+  "ResponseURL": "http://pre-signed-S3-url-for-response",
+  "StackId": "arn:aws:cloudformation:us-east-1:912008965710:stack/myteststack/9a69f7a0-4e79-11ef-9e43-0ef2f811835b",
+  "RequestId": "289c072c-d432-4271-af39-dd61dbc1da9d",
+  "LogicalResourceId": "ThisCustomLambda",
+  "PhysicalResourceId": "CustomResourcePhysicalID",
+  "ResourceType": "Custom::Route53Relay",
+  "ResourceProperties": {
+    "ServiceToken": "arn:aws:lambda:us-east-1:912008965710:function:aws-route-53-automation-relay-dev",
+    "record_name": "newlocalevent.dev.fabririvas.com",
+    "dns_zone": "dev.fabririvas.com",
+    "record_type": "A",
+    "record_value": "10.1.1.2",
+    "ServiceTimeout": "15"
+  },
+  "OldResourceProperties": {
+    "ServiceToken": "arn:aws:lambda:us-east-1:912008965710:function:aws-route-53-automation-relay-dev",
+    "record_name": "localevent.dev.fabririvas.com",
+    "dns_zone": "dev.fabririvas.com",
+    "record_type": "A",
+    "record_value": "10.1.1.1",
+    "ServiceTimeout": "15"
+  }
+}

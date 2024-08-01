@@ -1,0 +1,17 @@
+{
+  "RequestType": "Create",
+  "ServiceToken": "arn:aws:lambda:us-east-1:912008965710:function:aws-route-53-automation-relay-dev",
+  "ServiceTimeout": "30",
+  "ResponseURL": "https://cloudformation-custom-resource-response-useast1.s3.amazonaws.com/arn%3Aaws%3Acloudformation%3Aus-east-1%3A912008965710%3Astack/myteststack/ed3f03f0-4e68-11ef-915b-120fbdb84617%7CMyFrontEndTest%7C879e8907-5b78-4c92-97e8-de4b7262c933?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240730T114325Z&X-Amz-SignedHeaders=host&X-Amz-Expires=7200&X-Amz-Credential=AKIA6L7Q4OWTTG64LAV5%2F20240730%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=afff3d0deddda4e10c0091c72e15da76f7120924cf575e14aab62877f79928a7",
+  "StackId": "arn:aws:cloudformation:us-east-1:912008965710:stack/myteststack/ed3f03f0-4e68-11ef-915b-120fbdb84617",
+  "RequestId": "879e8907-5b78-4c92-97e8-de4b7262c933",
+  "LogicalResourceId": "MyFrontEndTest",
+  "ResourceType": "Custom::PingTester",
+  "ResourceProperties": {
+    "ServiceToken": "arn:aws:lambda:us-east-1:912008965710:function:aws-route-53-automation-relay-dev",
+    "record_name": "localevent.dev.fabririvas.com",
+    "record_type": "A",
+    "record_value": "10.1.1.1",
+    "ServiceTimeout": "30"
+  }
+}
