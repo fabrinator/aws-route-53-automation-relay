@@ -67,6 +67,14 @@ Resources:
                   - 'logs:CreateLogStream'
                   - 'logs:PutLogEvents'
                 Resource: '*'
+        - PolicyName: 'SnsPublish'
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: 'Allow'
+                Action:
+                  - "SNS:Publish"
+                Resource: !Join [ "", [ "arn:aws:sns:us-east-1:", !FindInMap [EnvironmentMap, !Ref Environment, AccountRoute53], ":Route53Automation-", !Ref Environment, "-sns-topic" ] ]
 
 Outputs:
   ThisFunction:
