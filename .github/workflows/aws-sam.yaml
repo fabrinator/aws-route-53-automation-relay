@@ -15,4 +15,5 @@ jobs:
       PYTHON_VERSION: 3.10.14
       PROJECT_FOLDER: aws-route-53-automation-relay
       AWS_ACCOUNT: 912008965710
+      AWS_DEPLOY_PROD: "['136273067277', '730335655220']"
     secrets: inherit
