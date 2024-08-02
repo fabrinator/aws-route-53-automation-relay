@@ -38,7 +38,7 @@ Resources:
       Environment:
         Variables:
           SNS_ARN: !Join [ "", [ "arn:aws:sns:us-east-1:", !FindInMap [EnvironmentMap, !Ref Environment, AccountRoute53], ":Route53Automation-", !Ref Environment, "-sns-topic" ] ]
-      FunctionName: !Sub "${AppName}-${Environment}"
+      FunctionName: !Sub "${AppName}"
       CodeUri: src/
       Handler: app.lambda_handler
       Runtime: python3.10
@@ -48,7 +48,7 @@ Resources:
   ThisFunctionExecutionRole:
     Type: 'AWS::IAM::Role'
     Properties:
-      RoleName: !Sub "${AppName}-${Environment}-role"
+      RoleName: !Sub "${AppName}"
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
