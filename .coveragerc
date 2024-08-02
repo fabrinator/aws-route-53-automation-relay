@@ -1,0 +1,4 @@
+[run]
+source = aws-route-53-automation-relay/src
+[report]
+skip_empty = True

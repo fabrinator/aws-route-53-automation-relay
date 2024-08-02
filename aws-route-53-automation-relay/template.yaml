@@ -1,0 +1,85 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  aws-route-53-automation-relay
+
+Parameters:
+  AppName:
+    Type: String
+    Default: "aws-route-53-automation-relay"
+    Description: "Application Name"
+  Environment:
+    Type: String
+    Default: dev
+    AllowedValues:
+      - dev
+      - prod
+
+Mappings:
+  EnvironmentMap:
+    dev:
+      AccountRoute53: "730335655220"
+    prod:
+      AccountRoute53: "730335655220"
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 3
+    MemorySize: 128
+
+    # You can add LoggingConfig parameters such as the Logformat, Log Group, and SystemLogLevel or ApplicationLogLevel. Learn more here https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html#sam-function-loggingconfig.
+    LoggingConfig:
+      LogFormat: JSON
+Resources:
+  ThisFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      Environment:
+        Variables:
+          SNS_ARN: !Join [ "", [ "arn:aws:sns:us-east-1:", !FindInMap [EnvironmentMap, !Ref Environment, AccountRoute53], ":Route53Automation-", !Ref Environment, "-sns-topic" ] ]
+      FunctionName: !Sub "${AppName}"
+      CodeUri: src/
+      Handler: app.lambda_handler
+      Runtime: python3.10
+      Role: !GetAtt ThisFunctionExecutionRole.Arn
+      Architectures:
+      - x86_64
+  ThisFunctionExecutionRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      RoleName: !Sub "${AppName}"
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: 'Allow'
+            Principal:
+              Service: 'lambda.amazonaws.com'
+            Action: 'sts:AssumeRole'
+      Policies:
+        - PolicyName: 'LambdaBasicExecutionPolicy'
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: 'Allow'
+                Action:
+                  - 'logs:CreateLogGroup'
+                  - 'logs:CreateLogStream'
+                  - 'logs:PutLogEvents'
+                Resource: '*'
+        - PolicyName: 'SnsPublish'
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: 'Allow'
+                Action:
+                  - "SNS:Publish"
+                Resource: !Join [ "", [ "arn:aws:sns:us-east-1:", !FindInMap [EnvironmentMap, !Ref Environment, AccountRoute53], ":Route53Automation-", !Ref Environment, "-sns-topic" ] ]
+
+Outputs:
+  ThisFunction:
+    Description: Lambda Function ARN
+    Value: !GetAtt ThisFunction.Arn
+  ThisFunctionIamRole:
+    Description: IAM Role for function
+    Value: !GetAtt ThisFunctionExecutionRole.Arn

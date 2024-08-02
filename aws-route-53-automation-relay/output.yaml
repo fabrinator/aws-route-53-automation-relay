@@ -1,0 +1,156 @@
+{
+    "TemplateBody": {
+        "AWSTemplateFormatVersion": "2010-09-09",
+        "Description": "aws-route-53-automation-relay\n",
+        "Parameters": {
+            "AppName": {
+                "Type": "String",
+                "Default": "aws-route-53-automation-relay",
+                "Description": "Application Name"
+            },
+            "Environment": {
+                "Type": "String",
+                "Default": "dev",
+                "AllowedValues": [
+                    "dev",
+                    "prod"
+                ]
+            }
+        },
+        "Outputs": {
+            "ThisFunction": {
+                "Description": "Hello World Lambda Function ARN",
+                "Value": {
+                    "Fn::GetAtt": [
+                        "ThisFunction",
+                        "Arn"
+                    ]
+                }
+            },
+            "ThisFunctionIamRole": {
+                "Description": "Implicit IAM Role created for Hello World function",
+                "Value": {
+                    "Fn::GetAtt": [
+                        "ThisFunctionRole",
+                        "Arn"
+                    ]
+                }
+            }
+        },
+        "Resources": {
+            "ThisLambdaExecutionRole": {
+                "Type": "AWS::IAM::Role",
+                "Properties": {
+                    "RoleName": {
+                        "Fn::Sub": "${AppName}-${Environment}-role"
+                    },
+                    "AssumeRolePolicyDocument": {
+                        "Version": "2012-10-17",
+                        "Statement": [
+                            {
+                                "Effect": "Allow",
+                                "Principal": {
+                                    "Service": "lambda.amazonaws.com"
+                                },
+                                "Action": "sts:AssumeRole"
+                            }
+                        ]
+                    },
+                    "Policies": [
+                        {
+                            "PolicyName": "LambdaBasicExecutionPolicy",
+                            "PolicyDocument": {
+                                "Version": "2012-10-17",
+                                "Statement": [
+                                    {
+                                        "Effect": "Allow",
+                                        "Action": [
+                                            "logs:CreateLogGroup",
+                                            "logs:CreateLogStream",
+                                            "logs:PutLogEvents"
+                                        ],
+                                        "Resource": "*"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "Metadata": {
+                    "SamResourceId": "ThisLambdaExecutionRole"
+                }
+            },
+            "ThisFunction": {
+                "Type": "AWS::Lambda::Function",
+                "Metadata": {
+                    "SamResourceId": "ThisFunction"
+                },
+                "Properties": {
+                    "Code": {
+                        "S3Bucket": "aws-sam-cli-managed-default-samclisourcebucket-dktpd7iv3qla",
+                        "S3Key": "6de643e688c2ea93896c6002a6e0516a"
+                    },
+                    "FunctionName": {
+                        "Fn::Sub": "${AppName}-${Environment}"
+                    },
+                    "Handler": "app.lambda_handler",
+                    "MemorySize": 128,
+                    "Role": {
+                        "Fn::GetAtt": [
+                            "ThisFunctionRole",
+                            "Arn"
+                        ]
+                    },
+                    "Runtime": "python3.10",
+                    "Timeout": 3,
+                    "Tags": [
+                        {
+                            "Key": "lambda:createdBy",
+                            "Value": "SAM"
+                        }
+                    ],
+                    "Architectures": [
+                        "x86_64"
+                    ],
+                    "LoggingConfig": {
+                        "LogFormat": "JSON"
+                    }
+                }
+            },
+            "ThisFunctionRole": {
+                "Type": "AWS::IAM::Role",
+                "Properties": {
+                    "AssumeRolePolicyDocument": {
+                        "Version": "2012-10-17",
+                        "Statement": [
+                            {
+                                "Action": [
+                                    "sts:AssumeRole"
+                                ],
+                                "Effect": "Allow",
+                                "Principal": {
+                                    "Service": [
+                                        "lambda.amazonaws.com"
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "ManagedPolicyArns": [
+                        "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                    ],
+                    "Tags": [
+                        {
+                            "Key": "lambda:createdBy",
+                            "Value": "SAM"
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "StagesAvailable": [
+        "Original",
+        "Processed"
+    ]
+}

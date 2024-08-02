@@ -1,0 +1,18 @@
+{
+  "RequestType": "Create",
+  "ServiceToken": "arn:aws:lambda:us-east-1:912008965710:function:aws-route-53-automation-relay-dev",
+  "ServiceTimeout": "30",
+  "ResponseURL": "http://pre-signed-S3-url-for-response",
+  "StackId": "arn:aws:cloudformation:us-east-1:912008965710:stack/myteststack/ed3f03f0-4e68-11ef-915b-120fbdb84617",
+  "RequestId": "879e8907-5b78-4c92-97e8-de4b7262c933",
+  "LogicalResourceId": "MyFrontEndTest",
+  "ResourceType": "Custom::PingTester",
+  "ResourceProperties": {
+    "ServiceToken": "arn:aws:lambda:us-east-1:912008965710:function:aws-route-53-automation-relay-dev",
+    "record_name": "localevent.dev.fabririvas.com",
+    "dns_zone": "dev.fabririvas.com",
+    "record_type": "A",
+    "record_value": "10.1.1.1",
+    "ServiceTimeout": "30"
+  }
+}

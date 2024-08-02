@@ -1,0 +1,15 @@
+{
+  "record_name": "localevent.dev.fabririvas.com",
+  "dns_zone": "dev.fabririvas.com",
+  "record_type": "A",
+  "record_value": "10.1.1.2",
+  "tf": {
+    "action": "delete",
+    "prev_input": {
+      "record_name": "localevent.dev.fabririvas.com",
+      "dns_zone": "dev.fabririvas.com",
+      "record_type": "A",
+      "record_value": "10.1.1.2"
+    }
+  }
+}

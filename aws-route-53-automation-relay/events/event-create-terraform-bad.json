@@ -1,0 +1,9 @@
+{
+  "record_name": "localevent.dev.fabririvas.com",
+  "record_type": "A",
+  "record_value": "10.1.1.1",
+  "tf": {
+    "action": "create",
+    "prev_input": null
+  }
+}
